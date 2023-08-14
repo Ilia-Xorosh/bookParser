@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books index{% endblock %}
+
+{% block body %}
+    <h1>Books index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Isbn</th>
+                <th>PageCount</th>
+                <th>PublishedDate</th>
+                <th>Thumbnail</th>
+                <th>ShortDescription</th>
+                <th>LongDescription</th>
+                <th>Status</th>
+                <th>Authors</th>
+                <th>Categories</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.pageCount }}</td>
+                <td>{{ book.publishedDate }}</td>
+              <td><img src={{ book.thumbnailUrl }}></td>
+                <td>{{ book.shortDescription }}</td>
+                <td>{{ book.longDescription }}</td>
+                <td>{{ book.status }}</td>
+                <td>{{ book.authors ? book.authors|join(', ') : '' }}</td>
+                <td>{{ book.categories ? book.categories|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_books_show', {'id': book.id}) }}">show</a>
+                    <a href="{{ path('app_books_edit', {'id': book.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_books_new') }}">Create new</a>
+{% endblock %}
